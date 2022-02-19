@@ -1,0 +1,12 @@
+h1 {
+    font-family: 'Redressed', 'Roboto Slab', cursive, serif;
+}
+
+.choice-player-selected {
+    background-color: #006a90;
+    border-radius: 8px;
+}
+
+img {
+    cursor: pointer;
+}

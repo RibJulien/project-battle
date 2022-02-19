@@ -1,0 +1,62 @@
+p,
+a,
+label,
+input,
+button,
+small {
+    font-family: "Poppins";
+}
+
+.primary-color {
+    color: #006a90;
+}
+
+.secondary-color {
+    color: #e74b38;
+}
+
+/****** MOBILE FIRST ******/
+/* Mobile up to 768px */
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 2rem !important;
+    }
+
+    p {
+        font-size: 14px !important;
+    }
+}
+
+/* Bootstrap override */
+
+.btn-primary {
+    background-color: #006a90!important;
+    border-color: #006a90!important;
+}
+
+.btn-primary:hover {
+    background-color: #005370!important;
+    border-color: #005370!important;
+}
+
+/* Tablet from 769px */
+@media screen and (min-width: 769px) {
+    h1 {
+        font-size: 2.5rem !important;
+    }
+
+    p {
+        font-size: 16px !important;
+    }
+}
+
+/* Desktop from 1024px */
+@media screen and (min-width: 1024px) {
+    h1 {
+        font-size: 3rem !important;
+    }
+
+    p {
+        font-size: 18px !important;
+    }
+}

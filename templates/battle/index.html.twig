@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Battle-Project - Accueil
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('/css/battle/index.css')}}">
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/battle/index.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center mt-5 primary-color"><span class="secondary-color">B</span>attle<span class="secondary-color">P</span>roject</h1>
+
+	{# Show Modal Add Player #}
+	<button type="button" class="btn btn-success d-block mx-auto" data-toggle="modal" data-target="#addPlayerModal">
+		<i class="fas fa-plus-circle"></i> Ajouter un joueur
+	</button>
+
+
+	{# Modal Add Player #}
+	<div class="modal fade" id="addPlayerModal" tabindex="-1" role="dialog" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addPlayerModalLabel">Ajouter un joueur</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body form-group">
+					{{ form_start(addPlayerForm) }}
+						
+						{{ form_row(addPlayerForm.name) }}
+						{{ form_row(addPlayerForm.life) }}
+						{{ form_row(addPlayerForm.damage) }}
+						{{ form_row(addPlayerForm.initiative) }}
+						{{ form_row(addPlayerForm.agility) }}
+						{{ form_row(addPlayerForm.threat) }}
+						{{ form_row(addPlayerForm.img) }}
+						<div class="row">
+							<div class="col-4 mt-2">
+								<img id="img-choice1" class="p-1"  src="{{ asset('img/player_icon/elf.png')}}" alt="Elfe" data-attribute="elf">
+							</div>
+							<div class="col-4 mt-2">
+								<img id="img-choice2" class="p-1"  src="{{ asset('img/player_icon/helmet.png')}}" alt="Chevalier" data-attribute="helmet">
+							</div>
+							<div class="col-4 mt-2">
+								<img id="img-choice3" class="p-1"  src="{{ asset('img/player_icon/old_wizard.png')}}" alt="Vieux Sorcier" data-attribute="old_wizard">
+							</div>
+							<div class="col-4 mt-2">
+								<img id="img-choice4" class="p-1"  src="{{ asset('img/player_icon/warrior.png')}}" alt="Guerrier" data-attribute="warrior">
+							</div>
+							<div class="col-4 mt-2">
+								<img id="img-choice5" class="p-1"  src="{{ asset('img/player_icon/wizard.png')}}" alt="Sorcier" data-attribute="wizard">
+							</div>
+							<div class="col-4 mt-2">
+								<img id="img-choice6" class="p-1"  src="{{ asset('img/player_icon/viking.png')}}" alt="Viking" data-attribute="viking">
+							</div>
+						</div>						
+					{{ form_end(addPlayerForm) }}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-primary">Ajouter</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
