@@ -13,9 +13,67 @@
 
 {% block body %}
 	<h1 class="text-center mt-5 primary-color"><span class="secondary-color">B</span>attle<span class="secondary-color">P</span>roject</h1>
+	<h2 class="text-center mt-2 primary-color">Liste des joueurs</h2>
+	{# List Player #}
+	<div class="list-player w-100 row">
+		{% for player in players %}
+			<div class="col-3 d-flex justify-content-center">
+				<div class="card" style="width: 16rem;">
+					<img class="card-img-top p-3" src="{{ asset('img/player_icon/' ~ player.img) }}" alt="{{ player.name }} image">
+					<div class="card-body text-center">
+						<h3 class="card-title">{{ player.name }}</h3>
+
+							<p class="my-0">Points de vie</p>
+							<p class="my-0">{{ player.life }} <i class="fas fa-heart text-danger"></i></p>
+							<input type="range" min="10" max="50" value={{ player.life }} disabled>
+
+							<p class="my-0">Dégâts</p>
+							<p class="my-0">{{ player.damage }} <i class="fas fa-magic text-warning"></i></p>
+							<input type="range" min="1" max="5" value={{ player.damage }} disabled>
+
+							<p class="my-0">Initiative</p>
+							<p class="my-0">{{ player.initiative }} <i class="fas fa-info-circle text-info"></i></p>
+							<input type="range" min="1" max="15" value={{ player.initiative }} disabled>
+
+							<p class="my-0">Agilité</p>
+							<p class="my-0">{{ player.agility }} <i class="fas fa-running text-secondary"></i></p>
+							<input type="range" min="1" max="15" value={{ player.agility }} disabled>
+
+							<p class="my-0">Menace</p>
+							<p class="my-0">{{ player.threat }} <i class="fas fa-skull-crossbones text-danger"></i></p>
+							<input type="range" min="1" max="15" value={{ player.threat }} disabled>
+
+						
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ player.id }}">
+							Supprimer
+						</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="deleteModal{{ player.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModallLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="deleteModallLabel">Supprimer {{ player.name }}</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<p>Êtes vous sûr de vouloir supprimer le joueur {{ player.name }} ? Vous ne pourrez pas revenir en arrière</p>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+									<a class="btn btn-danger" href="{{ path('delete_player', {'id': player.id }) }}">Confirmer</a>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 
 	{# Show Modal Add Player #}
-	<button type="button" class="btn btn-success d-block mx-auto" data-toggle="modal" data-target="#addPlayerModal">
+	<button type="button" class="btn btn-success d-block mx-auto mt-4" data-toggle="modal" data-target="#addPlayerModal">
 		<i class="fas fa-plus-circle"></i> Ajouter un joueur
 	</button>
 
@@ -30,15 +88,30 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body form-group">
+				<div class="modal-body form-group text-center">
 					{{ form_start(addPlayerForm) }}
-						
 						{{ form_row(addPlayerForm.name) }}
-						{{ form_row(addPlayerForm.life) }}
-						{{ form_row(addPlayerForm.damage) }}
-						{{ form_row(addPlayerForm.initiative) }}
-						{{ form_row(addPlayerForm.agility) }}
-						{{ form_row(addPlayerForm.threat) }}
+
+						{{ form_label(addPlayerForm.life) }}
+						<p id="range-life-value" class="my-0">30</p>
+						{{ form_widget(addPlayerForm.life) }}
+
+						{{ form_label(addPlayerForm.damage) }}
+						<p id="range-damage-value" class="my-0">3</p>
+						{{ form_widget(addPlayerForm.damage) }}
+
+						{{ form_label(addPlayerForm.initiative) }}
+						<p id="range-initiative-value" class="my-0">8</p>
+						{{ form_widget(addPlayerForm.initiative) }}
+
+						{{ form_label(addPlayerForm.agility) }}
+						<p id="range-agility-value" class="my-0">8</p>
+						{{ form_widget(addPlayerForm.agility) }}
+
+						{{ form_label(addPlayerForm.threat) }}
+						<p id="range-threat-value" class="my-0">8</p>
+						{{ form_widget(addPlayerForm.threat) }}
+						
 						{{ form_row(addPlayerForm.img) }}
 						<div class="row">
 							<div class="col-4 mt-2">
@@ -60,11 +133,13 @@
 								<img id="img-choice6" class="p-1"  src="{{ asset('img/player_icon/viking.png')}}" alt="Viking" data-attribute="viking">
 							</div>
 						</div>						
-					{{ form_end(addPlayerForm) }}
+					
 				</div>
+
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-					<button type="button" class="btn btn-primary">Ajouter</button>
+					{{ form_row(addPlayerForm.save) }}
+					{{ form_end(addPlayerForm) }}
 				</div>
 			</div>
 		</div>

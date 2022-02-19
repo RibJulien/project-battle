@@ -1,3 +1,24 @@
+document.querySelector("#form_life").addEventListener("click", function() {
+    document.getElementById("range-life-value").innerHTML = this.value;
+})
+
+document.querySelector("#form_damage").addEventListener("click", function() {
+    document.getElementById("range-damage-value").innerHTML = this.value;
+})
+
+document.querySelector("#form_initiative").addEventListener("click", function() {
+    document.getElementById("range-initiative-value").innerHTML = this.value;
+})
+
+document.querySelector("#form_agility").addEventListener("click", function() {
+    document.getElementById("range-agility-value").innerHTML = this.value;
+})
+
+document.querySelector("#form_threat").addEventListener("click", function() {
+    document.getElementById("range-threat-value").innerHTML = this.value;
+})
+
+// Select Player Image
 document.querySelector("#img-choice1").addEventListener("click", function() {
     document.getElementById('form_img_0').checked = true;
     deleteSelectedImg();

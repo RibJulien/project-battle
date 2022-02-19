@@ -2,11 +2,19 @@ h1 {
     font-family: 'Redressed', 'Roboto Slab', cursive, serif;
 }
 
+h2 {
+    font-family: 'Poppins', 'Roboto Slab', cursive, serif;
+}
+
+img {
+    cursor: pointer;
+}
+
 .choice-player-selected {
     background-color: #006a90;
     border-radius: 8px;
 }
 
-img {
-    cursor: pointer;
+#img-choice1, #img-choice2, #img-choice3, #img-choice4, #img-choice5, #img-choice6 {
+    max-height: 120px;
 }
