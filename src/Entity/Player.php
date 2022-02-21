@@ -20,36 +20,92 @@ class Player
     
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank (
+     * message = "Le joueur doit avoir un nom"
+     * )
+     * @Assert\Length(
+     * min = 2,
+     * max = 20,
+     * minMessage = "Le nom de votre joueur doit comporter au moins {{ limit }} caractères de long",
+     * maxMessage = "Le nom de votre joueur doit comporter au maximum {{ limit }} caractères de long"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank (
+     * message = "Vous devez sélectionner le nombre de points de vie que votre joueur doit avoir"
+     * )
+     * @Assert\Range (
+     * min = 10,
+     * max = 50,
+     * notInRangeMessage  = "Votre joueur doit avoir entre {{ min }} et {{ max }}  points de vie"
+     * )
      */
     private $life;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank (
+     * message = "Vous devez sélectionner le nombre de dégâts que votre joueur doit avoir"
+     * )
+     * @Assert\Range(
+     * min = 1,
+     * max = 5,
+     * notInRangeMessage  = "Votre joueur doit avoir entre {{ min }} et {{ max }} dégâts"
+     * )
      */
     private $damage;
     
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank (
+     * message = "Vous devez sélectionner l'initiative que votre joueur doit avoir"
+     * )
+     * @Assert\Range (
+     * min = 1,
+     * max = 15,
+     * notInRangeMessage  = "Votre joueur doit avoir entre {{ min }} et {{ max }} initiative"
+     * )
      */
     private $initiative;
     
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank (
+     * message = "Vous devez sélectionner l'agilité que votre joueur doit avoir"
+     * )
+     * @Assert\Range (
+     * min = 1,
+     * max = 15,
+     * notInRangeMessage  = "Votre joueur doit avoir entre {{ min }} et {{ max }} agilité"
+     * )
      */
     private $agility;
     
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank (
+     * message = "Vous devez sélectionner la menace que votre joueur doit avoir"
+     * )
+     * @Assert\Range (
+     * min = 1,
+     * max = 15,
+     * notInRangeMessage  = "Votre joueur doit avoir entre {{ min }} et {{ max }} menace"
+     * )
      */
     private $threat;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank (
+     * message = "Le joueur doit avoir une image"
+     * )
+     * @Assert\Length(
+     * min = 2,
+     * max = 20,
+     * )
      */
     private $img;
     

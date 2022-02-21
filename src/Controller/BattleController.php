@@ -26,14 +26,16 @@ class BattleController extends AbstractController
             ->add('name', TextType::class, [
                 'label' => 'Nom du joueur',
                 'attr' => [
-                    'class' => 'd-block w-75 mx-auto mb-4 form-control',
-                    'placeholder' => 'e.g : Mark'
+                    'class' => 'd-block w-75 mx-auto mb-2 form-control',
+                    'placeholder' => 'e.g : Mark',
+                    'minlength' => 2,
+                    'maxlength' => 20
                     ],
                 ])
             ->add('life', RangeType::class, [
                 'label' => 'Points de vie',
                 'attr' => [
-                    'class' => 'd-block mx-auto w-75 mb-4',
+                    'class' => 'd-block mx-auto w-75 mb-2',
                     'min' => 10,
                     'max' => 50,
                     'value' => 30
@@ -42,7 +44,7 @@ class BattleController extends AbstractController
             ->add('damage', RangeType::class, [
                 'label' => 'Dégâts',
                 'attr' => [
-                    'class' => 'd-block mx-auto w-75 mb-4',
+                    'class' => 'd-block mx-auto w-75 mb-2',
                     'min' => 1,
                     'max' => 5,
                     'value' => 3
@@ -51,7 +53,7 @@ class BattleController extends AbstractController
             ->add('initiative', RangeType::class, [
                 'label' => 'Initiative',
                 'attr' => [
-                    'class' => 'd-block mx-auto w-75 mb-4',
+                    'class' => 'd-block mx-auto w-75 mb-2',
                     'min' => 1,
                     'max' => 15,
                     'value' => 8
@@ -60,7 +62,7 @@ class BattleController extends AbstractController
             ->add('agility', RangeType::class, [
                 'label' => 'Agilité',
                 'attr' => [
-                    'class' => 'd-block mx-auto w-75 mb-4',
+                    'class' => 'd-block mx-auto w-75 mb-2',
                     'min' => 1,
                     'max' => 15,
                     'value' => 8
@@ -69,13 +71,14 @@ class BattleController extends AbstractController
             ->add('threat', RangeType::class, [
                 'label' => 'Menace',
                 'attr' => [
-                    'class' => 'd-block mx-auto w-75 mb-4',
+                    'class' => 'd-block mx-auto w-75 mb-2',
                     'min' => 1,
                     'max' => 15,
                     'value' => 8
                     ]
                 ])
             ->add('img', ChoiceType::class, [
+                'label' => 'Choisir une image pour votre joueur',
                 'choices' => [
                     'warrior' => 'warrior.png',
                     'elf' => 'elf.png',
@@ -99,7 +102,7 @@ class BattleController extends AbstractController
         if ($addPlayerForm->isSubmitted() && $addPlayerForm->isValid()) {
             // ? Stock data in a variable
             $data = $addPlayerForm->getData();
-            
+
             $player = new Player();
             $entityManager = $doctrine->getManager();
 

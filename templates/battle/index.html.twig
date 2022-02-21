@@ -14,37 +14,40 @@
 {% block body %}
 	<h1 class="text-center mt-5 primary-color"><span class="secondary-color">B</span>attle<span class="secondary-color">P</span>roject</h1>
 	<h2 class="text-center mt-2 primary-color">Liste des joueurs</h2>
+
+	{# Show Modal Add Player #}
+	<button type="button" class="btn btn-success d-block mx-auto mb-3" data-toggle="modal" data-target="#addPlayerModal">
+		<i class="fas fa-plus-circle"></i> Ajouter un joueur
+	</button>
+	<div class="d-block text-center">
+		<a href="/" class="btn btn-primary text-center mb-3">Organiser un combat</a>
+	</div>
 	{# List Player #}
-	<div class="list-player w-100 row">
+	<div class="list-player row w-100 d-flex justify-content-around">
 		{% for player in players %}
-			<div class="col-3 d-flex justify-content-center">
-				<div class="card" style="width: 16rem;">
-					<img class="card-img-top p-3" src="{{ asset('img/player_icon/' ~ player.img) }}" alt="{{ player.name }} image">
+			<div class="col-12 col-sm-6 col-xl-3">
+				<div class="card mb-4 mx-auto w-75">
+					<img class="card-img-top p-2" src="{{ asset('img/player_icon/' ~ player.img) }}" alt="{{ player.name }} image">
 					<div class="card-body text-center">
 						<h3 class="card-title">{{ player.name }}</h3>
 
-							<p class="my-0">Points de vie</p>
 							<p class="my-0">{{ player.life }} <i class="fas fa-heart text-danger"></i></p>
-							<input type="range" min="10" max="50" value={{ player.life }} disabled>
 
-							<p class="my-0">Dégâts</p>
-							<p class="my-0">{{ player.damage }} <i class="fas fa-magic text-warning"></i></p>
-							<input type="range" min="1" max="5" value={{ player.damage }} disabled>
-
-							<p class="my-0">Initiative</p>
-							<p class="my-0">{{ player.initiative }} <i class="fas fa-info-circle text-info"></i></p>
-							<input type="range" min="1" max="15" value={{ player.initiative }} disabled>
-
-							<p class="my-0">Agilité</p>
-							<p class="my-0">{{ player.agility }} <i class="fas fa-running text-secondary"></i></p>
-							<input type="range" min="1" max="15" value={{ player.agility }} disabled>
-
-							<p class="my-0">Menace</p>
-							<p class="my-0">{{ player.threat }} <i class="fas fa-skull-crossbones text-danger"></i></p>
-							<input type="range" min="1" max="15" value={{ player.threat }} disabled>
-
-						
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ player.id }}">
+							<div class="row">
+								<div class="col-6">
+									<p class="my-0">Dégâts {{ player.damage }} <i class="fas fa-magic text-warning"></i></p>
+								</div>
+								<div class="col-6">
+									<p class="my-0">Init. {{ player.initiative }} <i class="fas fa-info-circle text-info"></i></p>
+								</div>
+								<div class="col-6">
+									<p class="my-0">Agi. {{ player.agility }} <i class="fas fa-running text-secondary"></i></p>
+								</div>
+								<div class="col-6">
+									<p class="my-0">Mena. {{ player.threat }} <i class="fas fa-skull-crossbones text-danger"></i></p>
+								</div>
+							</div>						
+						<button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#deleteModal{{ player.id }}">
 							Supprimer
 						</button>
 
@@ -71,12 +74,6 @@
 			</div>
 		{% endfor %}
 	</div>
-
-	{# Show Modal Add Player #}
-	<button type="button" class="btn btn-success d-block mx-auto mt-4" data-toggle="modal" data-target="#addPlayerModal">
-		<i class="fas fa-plus-circle"></i> Ajouter un joueur
-	</button>
-
 
 	{# Modal Add Player #}
 	<div class="modal fade" id="addPlayerModal" tabindex="-1" role="dialog" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
@@ -114,22 +111,22 @@
 						
 						{{ form_row(addPlayerForm.img) }}
 						<div class="row">
-							<div class="col-4 mt-2">
+							<div class="col-lg-4 col-6 mt-2">
 								<img id="img-choice1" class="p-1"  src="{{ asset('img/player_icon/elf.png')}}" alt="Elfe" data-attribute="elf">
 							</div>
-							<div class="col-4 mt-2">
+							<div class="col-lg-4 col-6 mt-2">
 								<img id="img-choice2" class="p-1"  src="{{ asset('img/player_icon/helmet.png')}}" alt="Chevalier" data-attribute="helmet">
 							</div>
-							<div class="col-4 mt-2">
+							<div class="col-lg-4 col-6 mt-2">
 								<img id="img-choice3" class="p-1"  src="{{ asset('img/player_icon/old_wizard.png')}}" alt="Vieux Sorcier" data-attribute="old_wizard">
 							</div>
-							<div class="col-4 mt-2">
+							<div class="col-lg-4 col-6 mt-2">
 								<img id="img-choice4" class="p-1"  src="{{ asset('img/player_icon/warrior.png')}}" alt="Guerrier" data-attribute="warrior">
 							</div>
-							<div class="col-4 mt-2">
+							<div class="col-lg-4 col-6 mt-2">
 								<img id="img-choice5" class="p-1"  src="{{ asset('img/player_icon/wizard.png')}}" alt="Sorcier" data-attribute="wizard">
 							</div>
-							<div class="col-4 mt-2">
+							<div class="col-lg-4 col-6 mt-2">
 								<img id="img-choice6" class="p-1"  src="{{ asset('img/player_icon/viking.png')}}" alt="Viking" data-attribute="viking">
 							</div>
 						</div>						

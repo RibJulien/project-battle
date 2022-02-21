@@ -10,6 +10,14 @@ img {
     cursor: pointer;
 }
 
+label {
+    margin-bottom: 0!important;
+}
+
+input[type="range"] {
+    max-width: 100%;
+}
+
 .choice-player-selected {
     background-color: #006a90;
     border-radius: 8px;
