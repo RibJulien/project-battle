@@ -256,7 +256,7 @@ class BattleController extends AbstractController
                                 $count++;
                             }
                         }
-                        $summaryFight[$turn][$eachPlayersTurn] = "(".$playerTurn['team'].")".$playerTurn['name']." inflige ".$playerTurn['damage']." de dégâts à (".$target['team'].")".$target["name"];
+                        $summaryFight[$turn][$eachPlayersTurn] = "<span class='font-italic'>(".$playerTurn['team'].")".$playerTurn['name']."</span> <span class='hit'>inflige ".$playerTurn['damage']." de dégâts</span> à <span class='font-italic'>(".$target['team'].")".$target["name"]."</span>";
                         $players[$idTarget]['life'] -= $playerTurn['damage'];
                         
                         // ? Check if all ennemy are dead
@@ -275,7 +275,7 @@ class BattleController extends AbstractController
                             break;
                         }
                     } else {
-                        $summaryFight[$turn][$eachPlayersTurn] = "(".$playerTurn['team'].")".$playerTurn['name']." tente d'attaquer (".$target['team'].")".$target["name"].", mais ce dernier arrive à equiver !";
+                        $summaryFight[$turn][$eachPlayersTurn] = "<span class='font-italic'>(".$playerTurn['team'].")".$playerTurn['name']."</span> tente d'attaquer <span class='font-italic'>(".$target['team'].")".$target["name"]."</span>, mais ce dernier <span class='dodge'>arrive à equiver !</span>";
                     }
                 }
                 $eachPlayersTurn++;
@@ -284,7 +284,9 @@ class BattleController extends AbstractController
         return $this->render('battle/fight.html.twig', [
             'winnerTeam' => $winnerTeam,
             'turn' => $turn,
-            'lastturn' => $lastTurn
+            'summaryfights' => $summaryFight,
+            'lastturn' => $lastTurn,
+            'players' => $players
         ]);
     }
 }

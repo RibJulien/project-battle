@@ -1,0 +1,41 @@
+h1 {
+    font-family: 'Redressed', 'Roboto Slab', cursive, serif;
+}
+
+h2 {
+    font-family: 'Poppins', 'Roboto Slab', cursive, serif;
+}
+
+.versus-image {
+    max-width: 50%;
+}
+
+.title-team {
+    font-size: 24px!important;
+}
+
+.row {
+    margin: 0!important;
+}
+
+.dead {
+    filter: grayscale(100%);
+}
+
+.cross-img {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    width: 80%;
+}
+
+.hit {
+    font-weight: bold;
+    color: #bf0000;
+}
+
+.dodge {
+    font-weight: bold;
+    color: #007f00;
+}

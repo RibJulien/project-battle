@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('/css/battle/index.css')}}">
+	<link rel="stylesheet" href="{{ asset('/css/battle/fight.css')}}">
 {% endblock %}
 
 {% block javascripts %}
@@ -13,11 +13,102 @@
 
 {% block body %}
 	<h1 class="text-center mt-5 primary-color"><span class="secondary-color">B</span>attle<span class="secondary-color">P</span>roject</h1>
-    <pre>
-        {{ dump(winnerTeam) }}
-    </pre>
-    <pre>
-        {{ dump(turn) }}
-    </pre>
+    <div class="text-center">
+        <a href="{{ path('home') }}" class="btn btn-secondary my-2">Page précédente</a>
+        <a href="{{ path('fight') }}" class="btn btn-primary my-2">Générer un nouveau combat</a>
+    </div>
+    <h2 class="text-center mb-4 primary-color">L'équipe {{ winnerTeam }} remporte le combat !</h2>
+    <div class="row">
+        <div class="col-12 col-xl-5">
+            <p class="title-team text-center">Équipe 1</p>
+            <div class="row justify-content-center">
+                {% for player in players %}
+                    {% if player.team == 1 %}
+                        <div class="col-12 col-sm-6 col-xl-4">
+                            <div class="card mb-4">
+                                {% if player.life < 1 %}
+                                    <img class="card-img-top dead" src="{{ asset('img/player_icon/' ~ player.img) }}" alt="{{ player.name }} image">
+                                    <img class="cross-img" src="{{ asset('img/cross.png') }}">
+                                {% else %}
+                                    <img class="card-img-top" src="{{ asset('img/player_icon/' ~ player.img) }}" alt="{{ player.name }} image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h3 class="card-title text-center">{{ player.name }}</h3>
+                                    {% if player.life < 1 %}
+                                        <p class="card-text text-center">Points de vie restants : 0 <i class="fas fa-skull text-muted"></i></p>
+                                    {% else %}
+                                        <p class="card-text text-center">Points de vie restants : {{ player.life }} <i class="fas fa-heart text-danger"></i></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-12 col-xl-2 row">
+            <img class="img-fluid versus-image align-self-center mx-auto" src="{{ asset('img/vs.png')}}" alt="Versus image">
+        </div>
+        <div class="col-12 col-xl-5">
+            <p class="title-team text-center">Équipe 2</p>
+            <div class="row justify-content-center">
+                {% for player in players %}
+                    {% if player.team == 2 %}
+                        <div class="col-12 col-sm-6 col-xl-4">
+                            <div class="card mb-4">
+                                {% if player.life < 1 %}
+                                    <img class="card-img-top dead" src="{{ asset('img/player_icon/' ~ player.img) }}" alt="{{ player.name }} image">
+                                    <img class="cross-img" src="{{ asset('img/cross.png') }}">
+                                {% else %}
+                                    <img class="card-img-top" src="{{ asset('img/player_icon/' ~ player.img) }}" alt="{{ player.name }} image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h3 class="card-title text-center">{{ player.name }}</h3>
+                                    {% if player.life < 1 %}
+                                        <p class="card-text text-center">Points de vie restants : 0 <i class="fas fa-skull text-muted"></i></p>
+                                    {% else %}
+                                        <p class="card-text text-center">Points de vie restants : {{ player.life }} <i class="fas fa-heart text-danger"></i></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
+    <h3 class="text-center primary-color">Récapitulatif du combat</h3>
+        {% set count = 1 %}
+        {% for summaryfight in summaryfights %}
+        <table class="table table-bordered table-hover w-50 mx-auto text-center mt-5">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Détails - Tour de jeu {{ count }}</th>
+            </thead>
+            <tbody>
+                {% for i in summaryfight %}
+                    <tr>
+                        <td>{{ i|raw }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            {% set count = count +1 %}
+        {% endfor %}
+
+        <table class="table table-bordered table-hover w-50 mx-auto text-center my-5">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Victoire de l'équipe {{ winnerTeam }} !</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="dodge">{{ lastturn }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <small class="d-block text-center">Les images sont issues du site <a href="https://www.flaticon.com">flaticon.com</a></small>
 {% endblock %}
