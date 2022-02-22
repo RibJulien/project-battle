@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Battle-Project - Accueil
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('/css/battle/index.css')}}">
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/battle/index.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center mt-5 primary-color"><span class="secondary-color">B</span>attle<span class="secondary-color">P</span>roject</h1>
+    <pre>
+        {{ dump(winnerTeam) }}
+    </pre>
+    <pre>
+        {{ dump(turn) }}
+    </pre>
+
+{% endblock %}

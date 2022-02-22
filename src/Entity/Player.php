@@ -39,7 +39,7 @@ class Player
      * )
      * @Assert\Range (
      * min = 10,
-     * max = 50,
+     * max = 20,
      * notInRangeMessage  = "Votre joueur doit avoir entre {{ min }} et {{ max }}  points de vie"
      * )
      */

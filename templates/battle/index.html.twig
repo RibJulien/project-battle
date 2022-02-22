@@ -20,7 +20,7 @@
 		<i class="fas fa-plus-circle"></i> Ajouter un joueur
 	</button>
 	<div class="d-block text-center">
-		<a href="/" class="btn btn-primary text-center mb-3">Organiser un combat</a>
+		<a href="{{ path('fight') }}" class="btn btn-primary text-center mb-3">Organiser un combat</a>
 	</div>
 	{# List Player #}
 	<div class="list-player row w-100 d-flex justify-content-around">
@@ -90,7 +90,7 @@
 						{{ form_row(addPlayerForm.name) }}
 
 						{{ form_label(addPlayerForm.life) }}
-						<p id="range-life-value" class="my-0">30</p>
+						<p id="range-life-value" class="my-0">15</p>
 						{{ form_widget(addPlayerForm.life) }}
 
 						{{ form_label(addPlayerForm.damage) }}

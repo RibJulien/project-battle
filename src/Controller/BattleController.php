@@ -37,8 +37,8 @@ class BattleController extends AbstractController
                 'attr' => [
                     'class' => 'd-block mx-auto w-75 mb-2',
                     'min' => 10,
-                    'max' => 50,
-                    'value' => 30
+                    'max' => 20,
+                    'value' => 15
                     ]
                 ])
             ->add('damage', RangeType::class, [
@@ -159,5 +159,132 @@ class BattleController extends AbstractController
         );
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/combat", name="fight")
+     */
+    public function fight(ManagerRegistry $doctrine): Response
+    {
+        // ? Fetch player by initiative
+        $playersObject = $doctrine->getRepository(Player::class)->findBy(
+            [],
+            ['initiative' => 'DESC']
+        );
+
+        // ? Send an error notification if there are less than 2 players
+        if (count($playersObject) < 2 ) {
+            $this->addFlash(
+                'danger',
+                'Il faut au minimum 2 joueurs pour pouvoir organiser un combat'
+            );
+
+            return $this->redirectToRoute('home');
+        };
+
+        // ? Convert player object to array + add teams
+        $count = 0;
+        $players = [];
+        foreach ($playersObject as $i) {
+            $players[$count]['id'] = $i->getId();
+            $players[$count]['name'] = $i->getName();
+            $players[$count]['life'] = $i->getLife();
+            $players[$count]['damage'] = $i->getDamage();
+            $players[$count]['initiative'] = $i->getInitiative();
+            $players[$count]['agility'] = $i->getAgility();
+            $players[$count]['threat'] = $i->getThreat();
+            $players[$count]['img'] = $i->getImg();
+
+            // ? Add player to team
+            // ? Note : the first player will be team 1, and the second team 2 :
+            // ? To prevent the case where all players are in the same team
+            $players[$count]['team'] = rand(1,2);
+            switch ($count) {
+                case 0:
+                    $players[$count]['team'] = 1;
+                    break;
+                case 1:
+                    $players[$count]['team'] = 2;
+                    break;
+            }
+            $count++;
+        }
+
+        // ? Game start
+        $gameEnded = 0;
+        $turn = 0;
+        $summaryFight = [];
+        while ($gameEnded != 1) {
+            // ? Loop for every player's turn by initiative
+            $turn++;
+            $eachPlayersTurn = 0;
+            foreach ($players as $playerTurn) {
+                // ? If Player is still alive                
+                if ($playerTurn['life'] > 0) {
+                    $opponentsAlive = [];
+                    $count = 0;
+
+                    // ? Find alive opponents
+                    foreach ($players as $i) {
+                        if (($i['life'] > 0) && ($i['team'] !== $playerTurn['team'])) {
+                            $opponentsAlive[$count] = $i;
+                        }
+                        $count++;
+                    }
+
+                    // ? Find target with threat calcul
+                    $opponentsThreat = [];
+                    $count = 0;
+                    foreach ($opponentsAlive as $i) {
+                        for ($j=0; $j < $i['threat']; $j++) { 
+                            $opponentsThreat[$count] = $i;
+                            $count++;
+                        }
+                    }
+                    shuffle($opponentsThreat);
+                    $target = $opponentsThreat[0];
+                    // ? Calcul % touch (always between 50 and 100)
+                    $hitCalcul = (int)(($playerTurn['agility']*100)/15/2+50);
+                    // ? Player try to hit opponents
+                    if (rand(1,100) < $hitCalcul) {
+                        // ? Down life of target
+                        $count = 0;
+                        foreach ($players as $i) {
+                            if ($i['id'] == $target['id']) {
+                                $idTarget = $count;
+                            } else {
+                                $count++;
+                            }
+                        }
+                        $summaryFight[$turn][$eachPlayersTurn] = "(".$playerTurn['team'].")".$playerTurn['name']." inflige ".$playerTurn['damage']." de dégâts à (".$target['team'].")".$target["name"];
+                        $players[$idTarget]['life'] -= $playerTurn['damage'];
+                        
+                        // ? Check if all ennemy are dead
+                        $aliveOpponents = [];
+                        $count = 0;
+                        foreach ($players as $i) {
+                            if ($i['team'] !== $playerTurn['team'] && $i['life'] > 0) {
+                                $aliveOpponents[$count] = $i;
+                                $count++;
+                            }
+                        }
+                        if (count($aliveOpponents) < 1) {
+                            $gameEnded = 1;
+                            $winnerTeam = $playerTurn['team'];
+                            $lastTurn = "(".$playerTurn['team'].")".$playerTurn['name']." permet à son équipe de remporter le combat grâce à cette ultime attaque !";
+                            break;
+                        }
+                    } else {
+                        $summaryFight[$turn][$eachPlayersTurn] = "(".$playerTurn['team'].")".$playerTurn['name']." tente d'attaquer (".$target['team'].")".$target["name"].", mais ce dernier arrive à equiver !";
+                    }
+                }
+                $eachPlayersTurn++;
+            }
+        }
+        return $this->render('battle/fight.html.twig', [
+            'winnerTeam' => $winnerTeam,
+            'turn' => $turn,
+            'lastturn' => $lastTurn
+        ]);
     }
 }
