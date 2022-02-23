@@ -53,15 +53,13 @@ Passer les migrations du projet sur votre base de données :
 
 ``php bin/console doctrine:migrations:migrate``
 
-Vous pouvez ensuite lancé le serveur :
+Vous pouvez ensuite allumer votre serveur :
 
 ``php bin/console server:run``
 
 Puis vous rendre dans votre navigateur à cette url pour accéder au projet :
 
 ``127.0.0.1:8000``
-
-**Le reste de la documentation est en cours de rédaction**
 
 ## Fonctionnement
 
@@ -81,12 +79,12 @@ Le déroulement du combat :
 2. Un ordre de tour par joueur est défini en fonction de l'initiative.
 
 3. Lorsque c'est le tour du joueur : Il choisit une cible dans l'équipe adverse en fonction de la menace des ennemis.
-_ex : Un ennemi avec  4 de menaces aura 4 fois plus de chance d'être prit pour cible, qu'un ennemi avec 1 de menace._
+_ex : Un ennemi avec  4 de menaces aura 4 fois plus de chance d'être pris pour cible, qu'un ennemi avec 1 de menace._
 
 4. L'agilité de l'attaquant va ensuite définir si son attaque va toucher sa cible. 
     Voici la formule : ``$agility*100/15/2+50`` , le taux de toucher est toujours supérieur à 50% pour éviter un combat trop long.
     
-5. Si tous les joueurs d'un équipe sont morts, le combat est terminé, sinon, c'est au tour du joueur suivant.
+5. Si tous les joueurs d'une équipe sont morts, le combat est terminé, sinon, c'est au tour du joueur suivant.
 
 En image :
 
