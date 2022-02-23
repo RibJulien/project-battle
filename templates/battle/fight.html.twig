@@ -79,36 +79,36 @@
     </div>
 
     <h3 class="text-center primary-color">Récapitulatif du combat</h3>
-        {% set count = 1 %}
-        {% for summaryfight in summaryfights %}
-        <table class="table table-bordered table-hover w-50 mx-auto text-center mt-5">
-            <thead class="thead-dark">
+    {% set count = 1 %}
+    {% for summaryfight in summaryfights %}
+    <table class="table table-bordered table-hover w-50 mx-auto text-center mt-5">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Détails - Tour de jeu {{ count }}</th>
+        </thead>
+        <tbody>
+            {% for i in summaryfight %}
                 <tr>
-                    <th scope="col">Détails - Tour de jeu {{ count }}</th>
-            </thead>
-            <tbody>
-                {% for i in summaryfight %}
-                    <tr>
-                        <td>{{ i|raw }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-            {% set count = count +1 %}
-        {% endfor %}
-
-        <table class="table table-bordered table-hover w-50 mx-auto text-center my-5">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Victoire de l'équipe {{ winnerTeam }} !</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="dodge">{{ lastturn }}</td>
+                    <td>{{ i|raw }}</td>
                 </tr>
-            </tbody>
-        </table>
+            {% endfor %}
+        </tbody>
+    </table>
+        {% set count = count +1 %}
+    {% endfor %}
+
+    <table class="table table-bordered table-hover w-50 mx-auto text-center my-5">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Victoire de l'équipe {{ winnerTeam }} !</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="dodge">{{ lastturn }}</td>
+            </tr>
+        </tbody>
+    </table>
 
 
-        <small class="d-block text-center">Les images sont issues du site <a href="https://www.flaticon.com">flaticon.com</a></small>
+    <small class="d-block text-center">Les images sont issues du site <a href="https://www.flaticon.com">flaticon.com</a></small>
 {% endblock %}
